@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY ./composer.* /app/
 
-COPY --from=composer:lts /usr/bin/composer /user/bin/composer
+COPY --from=composer:lts /usr/bin/composer /usr/bin/composer
 
 RUN composer install
 
