@@ -15,10 +15,11 @@ services:
   api:
     build: 
       dockerfile: ./docker.php/Dockerfile
-    restart: on-failure
+    restart: unless-stopped
     ports:
       - 80:80
     volumes:
+      - /app/vendor
       - ./public:/app/public
       - ./src:/app/src
 
