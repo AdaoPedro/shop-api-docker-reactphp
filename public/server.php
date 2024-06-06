@@ -4,9 +4,8 @@
     use Psr\Http\Message\ServerRequestInterface as Request;
     use React\Http\Message\Response;
     use React\Socket\SocketServer;
-    use \Exception;
 
-    require dirname(__DIR__) . "/vendor/autoload.php";
+    require dirname(__DIR__) . "vendor/autoload.php";
 
     $httpServer = new HttpServer(
         function(Request $request) {
@@ -14,7 +13,7 @@
         }
     );
 
-    $httpServer->on("error", function (Exception $ex) {
+    $httpServer->on("error", function (\Exception $ex) {
         echo "Error: " . $ex->getMessage();
 
         $previousException = $ex->getPrevious();

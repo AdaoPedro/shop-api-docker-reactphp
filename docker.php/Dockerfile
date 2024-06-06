@@ -4,12 +4,14 @@ WORKDIR /app
 
 COPY ./composer.* /app/
 
-COPY --from=composer:lts /usr/bin/composer /usr/bin/composer
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
-RUN composer install
+RUN install-php-extensions @composer
 
 COPY ./public /app/
 COPY ./src /app/
+
+RUN composer install
 
 RUN composer dump-autoload
 
