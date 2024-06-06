@@ -8,7 +8,8 @@ COPY --from=composer:lts /usr/bin/composer /user/bin/composer
 
 RUN composer install
 
-COPY . /app/
+COPY ./public /app/
+COPY ./src /app/
 
 RUN composer dump-autoload
 

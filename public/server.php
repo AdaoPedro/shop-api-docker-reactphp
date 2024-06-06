@@ -6,7 +6,7 @@
     use React\Socket\SocketServer;
     use \Exception;
 
-    require __DIR__ . "/vendor/autoload.php";
+    require dirname(__DIR__) . "/vendor/autoload.php";
 
     $httpServer = new HttpServer(
         function(Request $request) {

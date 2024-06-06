@@ -12,7 +12,15 @@ services:
       - MARIADB_DATABASE=${MARIADB_DATABASE}
       - MARIADB_PORT=${MARIADB_PORT}
     restart: unless-stopped
-  
+  api:
+    build: 
+      dockerfile: ./docker.php/Dockerfile
+    restart: on-failure
+    ports:
+      - 80:80
+    volumes:
+      - ./public:/app/public
+      - ./src:/app/src
 
 volumes:
   mariadb_data:
