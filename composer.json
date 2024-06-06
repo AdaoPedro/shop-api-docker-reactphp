@@ -1,0 +1,17 @@
+{
+    "name": "adaopedro/shop-api",
+    "description": "A simple API built with Docker, PHP, MySQL and Redis",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    },
+    "require": {
+        "php": "^8.3",
+        "react/http": "^1.10.0",
+        "react/async": "^4.3.0",
+        "nikic/fast-route": "*"
+    },
+    "require-dev": {},
+    "scripts": {}
+}
