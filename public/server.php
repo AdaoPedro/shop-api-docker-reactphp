@@ -5,11 +5,11 @@
     use React\Http\Message\Response;
     use React\Socket\SocketServer;
 
-    require dirname(__DIR__) . "vendor/autoload.php";
+    require dirname(__DIR__) . DIRECTORY_SEPARATOR .  "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
     $httpServer = new HttpServer(
         function(Request $request) {
-            return Response::plaintext("Ola mundo!!!\n");
+            return Response::plaintext("Hello World! \n");
         }
     );
 
@@ -28,6 +28,6 @@
     $httpServer->listen($socketServer);
 
     echo "Server running on "
-        . str_replace("tcp", "http", $socketServer->getLocalAddress())
+        . str_replace("tcp", "http", $socketServer->getAddress())
         . PHP_EOL;
 

@@ -8,11 +8,11 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 
 RUN install-php-extensions @composer
 
-COPY ./public /app/
-COPY ./src /app/
-
 RUN composer install
+
+COPY ./src /app/
+COPY ./public /app/
 
 RUN composer dump-autoload
 
-CMD php server.php
+CMD php public/server.php
