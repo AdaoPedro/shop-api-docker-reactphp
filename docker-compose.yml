@@ -22,6 +22,7 @@ services:
       - /app/vendor
       - ./public:/app/public
       - ./src:/app/src
+      - ./.php-watcher.yml:/app/.php-watcher.yml
 
 volumes:
   mariadb_data:

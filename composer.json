@@ -10,8 +10,12 @@
         "php": "^8.3",
         "react/http": "^1.10.0",
         "react/async": "^4.3.0",
-        "nikic/fast-route": "*"
+        "nikic/fast-route": "1.3.0"
     },
-    "require-dev": {},
-    "scripts": {}
+    "require-dev": {
+        "seregazhuk/php-watcher": "0.5.2"
+    },
+    "scripts": {
+        "run-php-watcher": "vendor/bin/php-watcher public/server.php"
+    }
 }

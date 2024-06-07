@@ -4,15 +4,24 @@ WORKDIR /app
 
 COPY ./composer.* /app/
 
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+# Install Docker and its deps (i.e. git)
+COPY --from=composer:lts /usr/bin/composer /usr/local/bin/composer
+RUN apt-get update -y
+RUN apt-get install -y git
 
-RUN install-php-extensions @composer
+# Install and enable pcntl extension (for PHP Watcher)
+RUN docker-php-ext-configure pcntl --enable-pcntl && docker-php-ext-install pcntl;
 
-RUN composer install
+# Install composer deps
+RUN composer install --ignore-platform-reqs --prefer-dist --no-interaction --no-progress
 
+# Copy app files
 COPY ./src /app/
 COPY ./public /app/
+COPY ./.php-watcher.yml /app/
 
-RUN composer dump-autoload
+# Update composer.json file
+RUN composer dump-autoload --optimize
 
-CMD php public/server.php
+# Start server using php-watcher
+CMD composer run-php-watcher
