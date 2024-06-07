@@ -19,8 +19,8 @@
     require dirname(__DIR__) . DIRECTORY_SEPARATOR .  "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
     $routes = new RouteCollector(new Std(), new GroupCountBased());
-    $routes->get("/products", new GetAllProducts);
-    $routes->post("/products", new CreateProduct);
+    $routes->get("/products", new GetAllProducts(new \App\Products\ProductRepository));
+    $routes->post("/products", new CreateProduct(new \App\Products\ProductRepository));
 
     $httpServer = new HttpServer( new Router($routes) );
 

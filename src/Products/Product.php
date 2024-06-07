@@ -1,7 +1,11 @@
 <?php
     declare(strict_types=1);
 
+    namespace App\Products;
+
     final class Product {
+
+        public const TABLE = "products";
 
         public function __construct(
             private int $id, private string $name, private float $price, private int $categoryId
