@@ -3,33 +3,26 @@
     use React\Http\HttpServer;
     use React\Socket\SocketServer;
 
-    use React\Http\Message\Response;
-    use Psr\Http\Message\ServerRequestInterface;
-
     use App\Core\Router;
-    use FastRoute\DataGenerator\GroupCountBased;
-    use FastRoute\RouteCollector;
-    use FastRoute\RouteParser\Std;
+
+    use FastRoute\{
+        RouteCollector,
+        RouteParser\Std,
+        DataGenerator\GroupCountBased,
+    };
+
+    use App\Products\{
+        GetAllProducts,
+        CreateProduct
+    };
 
     require dirname(__DIR__) . DIRECTORY_SEPARATOR .  "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
     $routes = new RouteCollector(new Std(), new GroupCountBased());
-    
-    $routes->get("/", function(ServerRequestInterface $request) {
-        return Response::plaintext("GET /");
-    });
+    $routes->get("/products", new GetAllProducts);
+    $routes->post("/products", new CreateProduct);
 
-    $routes->get("/products", function (ServerRequestInterface $request) {
-        return Response::plaintext("GET /products");
-    });
-   
-    $routes->post("/products", function (ServerRequestInterface $request) {
-        return Response::plaintext("POST /products");
-    });
-
-    $httpServer = new HttpServer(
-        new Router($routes)
-    );
+    $httpServer = new HttpServer( new Router($routes) );
 
     $httpServer->on("error", function (\Exception $ex) {
         echo "Error: " . $ex->getMessage();
