@@ -23,6 +23,12 @@ services:
       - ./public:/app/public
       - ./src:/app/src
       - ./.php-watcher.yml:/app/.php-watcher.yml
+    environment:
+      - DB_HOST=database
+      - DB_USERNAME=${MARIADB_USER}
+      - DB_PASSWORD=${MARIADB_PASSWORD}
+      - DB_NAME=${MARIADB_DATABASE}
+      - DB_PORT=${MARIADB_PORT}
 
 volumes:
   mariadb_data:
