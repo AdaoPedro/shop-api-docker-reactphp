@@ -29,6 +29,5 @@ services:
       - DB_PASSWORD=${MARIADB_PASSWORD}
       - DB_NAME=${MARIADB_DATABASE}
       - DB_PORT=${MARIADB_PORT}
-
 volumes:
   mariadb_data:

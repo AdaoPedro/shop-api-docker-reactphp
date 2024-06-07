@@ -1,0 +1,24 @@
+#!./bin/env sh
+
+
+# Comandos Básicos do Apache Benchmark (wrk)
+echo "Using wrk as benchmarking tool, 12 threads 400 connections during 10s"
+docker run --rm skandyla/wrk:latest -t12 -c400 -d10s http://host.docker.internal
+# -t12: Usa 12 threads.
+# -c400: Mantém 400 conexões abertas.
+# -d30s: Executa o teste por 30 segundos.
+# http://host.docker.internal: A URL do servidor a ser testado (localhost do host)
+
+# docker run --rm skandyla/wrk:latest -t12 -c400 -d30s -R2000 http://host.docker.internal/products
+# -R2000: Limita a taxa de requisições a 2000 requisições por segundo.
+
+
+
+
+# Comandos Básicos do Apache Benchmark (ab)
+# ab -n 100 http://localhost/products
+# -n 100: Número total de requisições a serem feitas.
+# http://example.com/: A URL do servidor a ser testado.
+
+# ab -n 100 -c 10 http://localhost/products
+# -c 10: Número de conexões simultâneas.
