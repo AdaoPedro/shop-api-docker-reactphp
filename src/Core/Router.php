@@ -10,6 +10,7 @@
     use FastRoute\Dispatcher\GroupCountBased;
 
     use Psr\Http\Message\ServerRequestInterface;
+    use Psr\Http\Message\ResponseInterface;
     use React\Http\Message\Response;
 
     final class Router {
@@ -19,7 +20,7 @@
             $this->dispatcher = new GroupCountBased($routes->getData());
         }
 
-        public function __invoke (ServerRequestInterface $request) {
+        public function __invoke (ServerRequestInterface $request): ResponseInterface {
             $routeInfo = $this->dispatcher->dispatch(
                 $request->getMethod(), $request->getUri()->getPath()
             );

@@ -2,17 +2,20 @@
 
     declare(strict_types=1);
 
-    namespace App\Products;
+    namespace App\Products\Controllers;
 
     use React\Http\Message\Response;
     use Psr\Http\Message\ServerRequestInterface;
+    use Psr\Http\Message\ResponseInterface;
     use function React\Async\await;
+
+    use App\Products\ProductRepository;
 
     final class CreateProduct {
 
         public function __construct (private ProductRepository $repo) {}
 
-        public function __invoke(ServerRequestInterface $request) {
+        public function __invoke(ServerRequestInterface $request): ResponseInterface  {
             try {
 
                 $data = $request->getParsedBody();

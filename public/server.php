@@ -11,12 +11,24 @@
         DataGenerator\GroupCountBased,
     };
 
-    use App\Products\{
+    use App\Products\Controllers\{
         GetAllProducts,
         CreateProduct
     };
 
     require dirname(__DIR__) . DIRECTORY_SEPARATOR .  "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
+
+    $log = function (string $message): void { echo $message . PHP_EOL; };
+
+    $errorHandler = function (\Exception $ex): void {
+        $log("Error: {$ex->getMessage()}");
+
+        $previousException = $ex->getPrevious();
+
+        echo $previousException !== null
+            ? $log("Previous error: {$previousException->getMessage()}")
+            : "";
+    };
 
     $routes = new RouteCollector(new Std(), new GroupCountBased());
     $routes->get("/products", new GetAllProducts(new \App\Products\ProductRepository));
@@ -24,15 +36,7 @@
 
     $httpServer = new HttpServer( new Router($routes) );
 
-    $httpServer->on("error", function (\Exception $ex) {
-        echo "Error: " . $ex->getMessage();
-
-        $previousException = $ex->getPrevious();
-
-        echo $previousException !== null
-            ? "Previous error: " . $previousException->getMessage() . PHP_EOL
-            : "";
-    });
+    $httpServer->on("error", $errorHandler);
 
 
     $socketServer =  new SocketServer("0.0.0.0:80");

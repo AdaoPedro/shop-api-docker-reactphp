@@ -21,8 +21,10 @@ services:
     volumes:
       - /app/vendor
       - ./public:/app/public
+      - ./tests:/app/tests
       - ./src:/app/src
       - ./.php-watcher.yml:/app/.php-watcher.yml
+      - ./phpunit.xml:/app/phpunit.xml
     environment:
       - DB_HOST=database
       - DB_USERNAME=${MARIADB_USER}
