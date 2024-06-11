@@ -11,7 +11,7 @@ jobs:
       - name: Install Composer Deps
         run: composer install --prefer-dist --ignore-platform-reqs
       - name: Install wget
-        run: apt-get install -y wget
+        run: sudo apt-get install -y wget
       - name: Download PHPUnit
         run: wget https://phar.phpunit.de/phpunit-11.2.phar 
       - name: Run tests
