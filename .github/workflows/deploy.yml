@@ -1,21 +1,21 @@
-name: shop-api
-on:
-  push:
-    branches:
-      - main
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Composer Deps
-        run: composer install --prefer-dist --ignore-platform-reqs
-      - name: Install wget
-        run: sudo apt-get install -y wget
-      - name: Download PHPUnit
-        run: wget https://phar.phpunit.de/phpunit-11.2.phar 
-      - name: Run tests
-        run: composer run-tests
-      - run: docker build --target production -t adaopedro/shop-api-reactphp:1.1 -f ./docker.php/Dockerfile .
-      - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
-      - run: docker push adaopedro/shop-api-reactphp:1.1
+# name: shop-api
+# on:
+#   push:
+#     branches:
+#       - main
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Install Composer Deps
+#         run: composer install --prefer-dist --ignore-platform-reqs
+#       - name: Install wget
+#         run: sudo apt-get install -y wget
+#       - name: Download PHPUnit
+#         run: wget https://phar.phpunit.de/phpunit-11.2.phar 
+#       - name: Run tests
+#         run: composer run-tests
+#       - run: docker build --target production -t adaopedro/shop-api-reactphp:1.1 -f ./docker.php/Dockerfile .
+#       - run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+#       - run: docker push adaopedro/shop-api-reactphp:1.1
