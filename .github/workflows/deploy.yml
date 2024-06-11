@@ -10,8 +10,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Composer Deps
         run: composer install --prefer-dist --ignore-platform-reqs
-      - name: Download PHPUnit
+      - name: Install wget
         run: apt-get install -y wget
+      - name: Download PHPUnit
         run: wget https://phar.phpunit.de/phpunit-11.2.phar 
       - name: Run tests
         run: composer run-tests
