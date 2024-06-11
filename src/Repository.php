@@ -11,7 +11,7 @@
         protected MysqlClient $connection;
 
         public function __construct () {
-            $this->connection = (new \App\Core\Database\Connection)->getInstance()->getAsyncMysqlClient();
+            $this->connection = (new \App\Core\Database\Connection())->getInstance()->getAsyncMysqlClient();
         }
 
     } 

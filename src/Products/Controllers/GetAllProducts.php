@@ -1,6 +1,4 @@
-<?php
-
-    declare(strict_types=1);
+<?php declare(strict_types=1);
 
     namespace App\Products\Controllers;
 
@@ -20,12 +18,13 @@
                 
                 $products = await( $this->repo->getAll() );
 
+                /** @var string[] $headers */
+                $headers = ["Content-Type" => "application/json"];
+
                 return new response(
                     Response::STATUS_OK,
-                    [
-                        'Content-Type' => 'application/json'
-                    ],
-                    json_encode(
+                    $headers,
+                    (string) json_encode(
                         $products,
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRESERVE_ZERO_FRACTION
                     )
@@ -34,8 +33,10 @@
             } catch (\Exception $ex) {
                 echo "Cannot get product records from database: " . $ex->getMessage() . PHP_EOL;
                 
+                /** @var string[] $headers */
+                $headers = ["Content-Type" => "application/json"];
                 return new Response(
-                    500, ["Content-Type: application/json"], json_encode(["error" => $ex->getMessage()])
+                    500, $headers, (string) json_encode(["error" => $ex->getMessage()])
                 );
             }
             

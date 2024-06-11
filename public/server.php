@@ -20,14 +20,14 @@
 
     $log = function (string $message): void { echo $message . PHP_EOL; };
 
-    $errorHandler = function (\Exception $ex): void {
+    $errorHandler = function (\Exception $ex) use ($log): void {
         $log("Error: {$ex->getMessage()}");
 
         $previousException = $ex->getPrevious();
 
-        echo $previousException !== null
-            ? $log("Previous error: {$previousException->getMessage()}")
-            : "";
+        if ($previousException !== null) {
+            $log("Previous error: {$previousException->getMessage()}");
+        }
     };
 
     $routes = new RouteCollector(new Std(), new GroupCountBased());
@@ -43,6 +43,6 @@
     $httpServer->listen($socketServer);
 
     echo "Server running on "
-        . str_replace("tcp", "http", $socketServer->getAddress())
+        . str_replace("tcp", "http", (string) $socketServer->getAddress())
         . PHP_EOL;
 

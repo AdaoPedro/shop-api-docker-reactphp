@@ -1,6 +1,3 @@
 
-2- adicionar static analyses
-3- push to docker hub
 4- automate with github actions
 5- deploy to oracle container service
-6- create differents dockerfiles

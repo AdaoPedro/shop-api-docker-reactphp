@@ -1,0 +1,14 @@
+services:
+  database:
+    ports:
+      - "4406:${MARIADB_PORT}"
+  api:
+    build: 
+      dockerfile: ./docker.php/Dockerfile
+      target: development
+    volumes:
+      - ./public:/app/public
+      - ./tests:/app/tests
+      - ./src:/app/src
+      - ./.php-watcher.yml:/app/.php-watcher.yml
+      - ./phpunit.xml:/app/phpunit.xml

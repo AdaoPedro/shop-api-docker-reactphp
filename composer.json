@@ -23,6 +23,7 @@
     },
     "scripts": {
         "run-php-watcher": "vendor/bin/php-watcher public/server.php",
-        "run-tests": "php phpunit-11.2.phar"
+        "run-tests": "php phpunit-11.2.phar",
+        "run-phpstan": "php phpstan.phar analyse -l max public src tests"
     }
 }

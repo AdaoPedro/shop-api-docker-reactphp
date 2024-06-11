@@ -3,20 +3,27 @@ services:
     image: mariadb:lts
     volumes:
       - mariadb_data:/var/lib/mysql
-    restart: unless-stopped
+    ports:
+      - "4406:${MARIADB_PORT}"
     environment:
       - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
       - MARIADB_USER=${MARIADB_USER}
       - MARIADB_PASSWORD=${MARIADB_PASSWORD}
       - MARIADB_DATABASE=${MARIADB_DATABASE}
       - MARIADB_PORT=${MARIADB_PORT}
+    restart: unless-stopped
   api:
     build: 
       dockerfile: ./docker.php/Dockerfile
-      target: production
     restart: unless-stopped
     ports:
       - 80:80
+    volumes:
+      - ./public:/app/public
+      - ./tests:/app/tests
+      - ./src:/app/src
+      - ./.php-watcher.yml:/app/.php-watcher.yml
+      - ./phpunit.xml:/app/phpunit.xml
     environment:
       - DB_HOST=database
       - DB_USERNAME=${MARIADB_USER}

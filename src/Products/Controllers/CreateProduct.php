@@ -18,7 +18,7 @@
         public function __invoke(ServerRequestInterface $request): ResponseInterface  {
             try {
 
-                $data = $request->getParsedBody();
+                $data = (array) $request->getParsedBody();
 
                 $name = (string)  $data["name"];
                 $price = (float)  $data["price"];
@@ -26,12 +26,13 @@
                 
                 $productId = await( $this->repo->create($name, $price, $categoryId) );
 
+                /** @var string[] $headers */
+                $headers = ["Content-Type" => "application/json"];
+
                 return new response(
                     Response::STATUS_OK,
-                    [
-                        'Content-Type' => 'application/json'
-                    ],
-                    json_encode(
+                    $headers,
+                    (string) json_encode(
                         ["id" => $productId],
                         JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRESERVE_ZERO_FRACTION
                     )
@@ -40,8 +41,11 @@
             } catch (\Exception $ex) {
                 echo "Cannot get product records from database: " . $ex->getMessage() . PHP_EOL;
                 
+                /** @var string[] $headers */
+                $headers = ["Content-Type" => "application/json"];
+
                 return new Response(
-                    500, ["Content-Type: application/json"], json_encode(["error" => $ex->getMessage()])
+                    500, $headers, (string) json_encode(["error" => $ex->getMessage()])
                 );
             }
         }
