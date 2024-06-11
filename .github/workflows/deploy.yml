@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Composer Deps
-        run: composer install --prefer-dist --ignore-platform-reqs --no-dev --no-scripts --no-progress --no-interaction
+        run: composer install --prefer-dist --ignore-platform-reqs
       - name: Run tests
         run: composer run-tests
       - run: docker build --target production -t adaopedro/shop-api-reactphp:1.1 -f ./docker.php/Dockerfile .
